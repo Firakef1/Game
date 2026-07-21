@@ -6,7 +6,7 @@ from  app.core.database import Base
 class User(Base):
     __tablename__ = "users"
 
-    user_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid7, index=True)
+    user_id = Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid7(), index=True)
 
     email = Column(String, nullable=False, unique=True)
     name = Column(String, nullable=False)
