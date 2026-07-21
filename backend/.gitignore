@@ -2,7 +2,7 @@
 .uv/
 .env.*
 !env.example
-.db
+*.db
 .sqlite3
 .sql
 *.py[code]

@@ -1,11 +1,24 @@
-from fastapi import APIRouter
-from app.schemas.user import User_model
+from fastapi import status, Depends, HTTPException
+from sqlalchemy.orm import Session
 
-router = APIRouter(prefix="/users")
 
-@router.post("/login")
-async def user_login(user_data: User_model):
+from app.schemas import user
+from app.api.deps import get_db
+from app.models.user import User
+
+def create_user(data: user.User_model, db: Session = Depends(get_db)):
+    
+    user = User(**data.model_dump())
+
     try:
-        pass
+
+        db.add(user)
+        db.commit()
+        return user
+    
     except:
-        pass
+
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
