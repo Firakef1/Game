@@ -16,12 +16,16 @@ class LoginModel(BaseModel):
 
 
 
-class LoginResponse(BaseModel):
-    msg: str
+class Data(BaseModel):
     name: str
     email: str
     bio: str | None = None
+    
 
+class LoginResponse(BaseModel):
+    msg: str
+    data: Data
+    
     class config:
 
         from_attributes = True

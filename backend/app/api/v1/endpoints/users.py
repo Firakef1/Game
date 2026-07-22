@@ -40,7 +40,9 @@ def login(
 
     return {
         "msg": "Logged in successfully",
-        "name": str(user.name),
-        "email": str(user.email),
-        "bio": str(user.bio)
+        "data":{
+            "name": user.name,
+            "email": user.email,
+            "bio": user.bio
+        }
     }
