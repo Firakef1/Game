@@ -7,7 +7,7 @@ from app.schemas import user
 from app.api.deps import get_db
 from app.models.user import User
 
-def create_user(data: user.LoginModel, db: Session = Depends(get_db)):
+def create_user(data: user.UserModel, db: Session = Depends(get_db)):
     
     user = User(**data.model_dump())
 
@@ -25,7 +25,7 @@ def create_user(data: user.LoginModel, db: Session = Depends(get_db)):
         )
 
 
-def authenticate_user(data: user.UserModel, db: Session) -> User | None:
+def authenticate_user(data: user.LoginModel, db: Session) -> User | None:
     try:
         user = (
             db.query(User)
