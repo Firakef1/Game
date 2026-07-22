@@ -11,3 +11,4 @@ class User(Base):
     email = Column(String, nullable=False, unique=True)
     name = Column(String, nullable=False)
     bio = Column(String, nullable=True)
+    password = Column(String, nullable=False)

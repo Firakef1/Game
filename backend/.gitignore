@@ -3,8 +3,8 @@
 .env.*
 !env.example
 *.db
-.sqlite3
-.sql
+*.sqlite3
+*.sql
 *.py[code]
 *$py.class
 __pycache__/
