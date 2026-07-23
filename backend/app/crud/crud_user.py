@@ -1,15 +1,20 @@
 from fastapi import status, Depends, HTTPException
 from sqlalchemy.orm import Session
-import traceback
+# import traceback
 
 
 from app.schemas import user
 from app.api.deps import get_db
 from app.models.user import User
+from app.core import security
 
 def create_user(data: user.UserModel, db: Session = Depends(get_db)):
-    
-    user = User(**data.model_dump())
+
+
+    user_data = data.model_dump(exclude={"password"})
+    hashed_password = security.generate_hash(data.password)
+    user = User(**user_data, password=hashed_password)
+
 
     try:
 
@@ -36,11 +41,11 @@ def authenticate_user(data: user.LoginModel, db: Session) -> User | None:
         if not user:
             return None
 
-        if user.password != data.password:
+        if not security.verify_password(data.password, str(user.password)):
             return None
 
         return user
 
     except Exception:
-        traceback.print_exc()
+        # traceback.print_exc()
         return None
