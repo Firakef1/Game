@@ -7,8 +7,3 @@ app = FastAPI()
 Base.metadata.create_all(bind=engine)
 
 app.include_router(users.router)
-
-@app.get("/")
-def root():
-    print("HELLO")
-    return {"status": "Game backend is fully operational!"}
